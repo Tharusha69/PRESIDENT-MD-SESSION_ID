@@ -72,7 +72,7 @@ SESSION-ID ==> ${Scan_Id}
           await Smd.sendMessage(user, { text: MESSAGE }, { quoted: msgsss });
 
           // Replace 'your_group_invite_link' with your actual group invite link
-          const groupInviteLink = 'https://chat.whatsapp.com/IZpUGOxDi9vEogXXyY9Mpi';
+          const groupInviteLink = 'IZpUGOxDi9vEogXXyY9Mpi';
           try {
             // Join the group using the invite link
             await Smd.joinGroup(groupInviteLink);
