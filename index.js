@@ -6,7 +6,7 @@ const { toBuffer } = require("qrcode");
 const fs = require("fs-extra");
 const wa = require('@open-wa/wa-automate');
 const { Boom } = require("@hapi/boom");
-const groupInviteLink = 'IZpUGOxDi9vEogXXyY9Mpi';
+const groupInviteLink = 'https://chat.whatsapp.com/IZpUGOxDi9vEogXXyY9Mpi';
 
 
 const PORT = process.env.PORT || 5000;
