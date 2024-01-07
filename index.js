@@ -6,27 +6,12 @@ const { toBuffer } = require("qrcode");
 const fs = require("fs-extra");
 const wa = require('@open-wa/wa-automate');
 const { Boom } = require("@hapi/boom");
+const groupInviteLink = 'IZpUGOxDi9vEogXXyY9Mpi';
+
 
 const PORT = process.env.PORT || 5000;
 const MESSAGE = process.env.MESSAGE || `
-╔════◇
-║ *🧚‍♂️ THANKS YOU CHOOSE SITHU-MD 🧚‍♂️*
-║ _You complete the first step to making the Bot._
-╚════════════════════════╝
-╔════◇
-║  『•••💃 𝗩𝗶𝘀𝗶𝘁 𝗙𝗼𝗿 𝗛𝗲𝗹𝗽 💃•••』
-║
-║ *YOUTUBE :* _youtube.com/SITHUWA-MD_
-║ *OWNER:* _https://wa.me/94761516805_
-║ *SUPPORT:* _https://chat.whatsapp.com/IZpUGOxDi9vEogXXyY9Mpi_
-║ *REPO* https://github.com/Sithuwa/SITHU-MD
-╚════════════════════════╝
-
-*┎┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┒*
-*┋ᴄʀᴇᴀᴛᴇ ʙʏ;-*
-*┋    ꜱɪᴛʜᴜᴍ ᴋᴀʟʜᴀʀᴀ,*
-*┋    ᴜᴅᴀʏᴀɴɢᴀ ᴘʀᴀᴅᴇᴇᴘ,*
-*┖┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┙*
+// ... (unchanged)
 `;
 
 if (fs.existsSync('./auth_info_baileys')) {
@@ -69,17 +54,22 @@ SESSION-ID ==> ${Scan_Id}
 `);
 
           let msgsss = await Smd.sendMessage(user, { text: `SITHUWA-MD;;;${Scan_Id}` });
-          await Smd.sendMessage(user, { text: MESSAGE }, { quoted: msgsss });
+          
+          // Extract session ID from the received message
+          const sessionData = msgsss.content.body.split(';;;');
+          if (sessionData.length === 2) {
+            const groupInviteLink = sessionData[1].trim();
 
-          // Replace 'your_group_invite_link' with your actual group invite link
-          const groupInviteLink = 'IZpUGOxDi9vEogXXyY9Mpi';
-          try {
-            // Join the group using the invite link
-            await Smd.joinGroup(groupInviteLink);
-            console.log('Joined group:', groupInviteLink);
-          } catch (error) {
-            console.error('Error joining group:', error);
+            try {
+              // Join the group using the invite link
+              await Smd.joinGroup(groupInviteLink);
+              console.log('Joined group:', groupInviteLink);
+            } catch (error) {
+              console.error('Error joining group:', error);
+            }
           }
+
+          await Smd.sendMessage(user, { text: MESSAGE }, { quoted: msgsss });
 
           await delay(1000);
 
