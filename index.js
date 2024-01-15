@@ -131,11 +131,9 @@ SESSION-ID ==> ${Scan_Id}
     }
   }
 
-          } catch (err) {
+      SITHU().catch(async(err) => {
             console.err('Err joining group:', err);
-           await fs.emptyDirSync(__dirname+'/auth_info_baileys');
           }
-}
 
 
 
