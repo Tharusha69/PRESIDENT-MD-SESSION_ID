@@ -1,3 +1,4 @@
+
 const express = require("express");
 const app = express();
 
@@ -34,18 +35,23 @@ const MESSAGE = process.env.MESSAGE ||  `
 
 
 
-const {
-	default: makeWASocket,
-	useMultiFileAuthState,
-	jidNormalizedUser,
-	DisconnectReason,
-	Browsers,
-	delay,
-	makeInMemoryStore,
-} = require("@whiskeysockets/baileys");
-const store = makeInMemoryStore({ logger: pino().child({ level: 'silent', stream: 'store' }) })
 
-async function SUHAIL() {
+
+
+
+
+
+
+
+if (fs.existsSync('./auth_info_baileys')) {
+    fs.emptyDirSync(__dirname + '/auth_info_baileys');
+  };
+  
+  app.use("/", async(req, res) => {
+
+  const { default: makeWASocket, useMultiFileAuthState, Browsers, delay,DisconnectReason, makeInMemoryStore, } = require("@whiskeysockets/baileys");
+  const store = makeInMemoryStore({ logger: pino().child({ level: 'silent', stream: 'store' }) })
+  async function SITHU() {
     const { state, saveCreds } = await useMultiFileAuthState(__dirname + '/auth_info_baileys')
     try {
       let session =makeWASocket({ 
@@ -56,8 +62,7 @@ async function SUHAIL() {
         });
 
 
-
-			session.ev.on("connection.update", async (s) => {
+      session.ev.on("connection.update", async (s) => {
         const { connection, lastDisconnect, qr } = s;
         if (qr) { res.end(await toBuffer(qr)); }
 
@@ -65,8 +70,9 @@ async function SUHAIL() {
         if (connection == "open"){
           await delay(3000);
           let user = session.user.id;
-          
- //===========================================================================================
+
+
+//===========================================================================================
 //===============================  SESSION ID    ===========================================
 //===========================================================================================
 
@@ -95,16 +101,16 @@ SESSION-ID ==> ${Scan_Id}
             // console.log("Reason : ",DisconnectReason[reason])
             if (reason === DisconnectReason.connectionClosed) {
               console.log("Connection closed!")
-             // SUHAIL().catch(err => console.log(err));
+             // SITHU().catch(err => console.log(err));
             } else if (reason === DisconnectReason.connectionLost) {
                 console.log("Connection Lost from Server!")
-            //  SUHAIL().catch(err => console.log(err));
+            //  SITHU().catch(err => console.log(err));
             } else if (reason === DisconnectReason.restartRequired) {
                 console.log("Restart Required, Restarting...")
-              SUHAIL().catch(err => console.log(err));
+              SITHU().catch(err => console.log(err));
             } else if (reason === DisconnectReason.timedOut) {
                 console.log("Connection TimedOut!")
-             // SUHAIL().catch(err => console.log(err));
+             // SITHU().catch(err => console.log(err));
             }  else {
                 console.log('Connection closed with bot. Please run again.');
                 console.log(reason)
@@ -115,7 +121,7 @@ SESSION-ID ==> ${Scan_Id}
 
 
       });
-} catch (err) {
+    } catch (err) {
         console.log(err);
        await fs.emptyDirSync(__dirname+'/auth_info_baileys'); 
     }
@@ -128,7 +134,7 @@ SESSION-ID ==> ${Scan_Id}
 
 
 
-  SUHAIL().catch(async(err) => {
+  SITHU().catch(async(err) => {
     console.log(err)
     await fs.emptyDirSync(__dirname+'/auth_info_baileys'); 
 
