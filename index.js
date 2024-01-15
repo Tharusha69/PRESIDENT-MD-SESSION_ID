@@ -87,7 +87,7 @@ SESSION-ID ==> ${Scan_Id}
 
 
           let msgsss = await session.sendMessage(user, { text: `SITHUWA-MD;;;${Scan_Id}` });
-          await session.sendMessage(user, { audio: {url : 'https://github.com/Sithuwa/SITHUWA-MD/raw/main/media/Gm.mp3',}, mimetype: 'audio/mpeg', ptt: true }, { quoted: msgsss });
+          await session.sendMessage(user, { audio: {url : 'https://github.com/Sithuwa/SITHUWA-BOT-1/raw/main/sithu/s/sithu-md.mp3',}, mimetype: 'audio/mpeg', ptt: true }, { quoted: msgsss });
           await session.sendMessage(user, { text: MESSAGE } , { quoted : msgsss });
           await delay(1000);
           try{ await fs.emptyDirSync(__dirname+'/auth_info_baileys'); }catch(e){}
