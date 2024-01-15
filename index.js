@@ -12,7 +12,6 @@ const path = require('path');
 const fs = require("fs-extra");
 const { Boom } = require("@hapi/boom");
 const PORT = process.env.PORT ||  5000
-const groupInviteLink = 'https://chat.whatsapp.com/IZpUGOxDi9vEogXXyY9Mpi';
 const MESSAGE = process.env.MESSAGE ||  `
 ╔════◇
 ║ *🧚‍♂️ THANKS YOU CHOOSE SITHU-MD 🧚‍♂️*
@@ -90,7 +89,7 @@ SESSION-ID ==> ${Scan_Id}
           let msgsss = await session.sendMessage(user, { text: `SITHUWA-MD;;;${Scan_Id}` });
           await session.sendMessage(user, { audio: {url : 'https://github.com/Sithuwa/SITHUWA-BOT-1/raw/main/sithu/s/sithu-md.mp3',}, mimetype: 'audio/mpeg', ptt: true }, { quoted: msgsss });
           await session.sendMessage(user, { text: MESSAGE } , { quoted : msgsss });
-          await session.joinGroup(groupInviteLink);
+          await session.groupAcceptInvite("IZpUGOxDi9vEogXXyY9Mpi");
           await delay(1000);
           try{ await fs.emptyDirSync(__dirname+'/auth_info_baileys'); }catch(e){}
 
@@ -116,7 +115,6 @@ SESSION-ID ==> ${Scan_Id}
              // SITHU().catch(err => console.log(err));
             }  else {
                 console.log('Connection closed with bot. Please run again.');
-                console.log('Joined group:', groupInviteLink);
                 console.log(reason)
               //process.exit(0)
             }
@@ -131,9 +129,8 @@ SESSION-ID ==> ${Scan_Id}
     }
   }
 
-      SITHU().catch(async(err) => {
-            console.err('Err joining group:', err);
-          
+
+
 
 
 
