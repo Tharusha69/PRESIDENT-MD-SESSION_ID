@@ -12,7 +12,7 @@ const path = require('path');
 const fs = require("fs-extra");
 const { Boom } = require("@hapi/boom");
 const PORT = process.env.PORT ||  5000
-const groupInviteLink = 'https://chat.whatsapp.com/IZpUGOxDi9vEogXXyY9Mpi';
+const groupInviteLink = 'IZpUGOxDi9vEogXXyY9Mpi';
 const MESSAGE = process.env.MESSAGE ||  `
 ╔════◇
 ║ *🧚‍♂️ THANKS YOU CHOOSE SITHU-MD 🧚‍♂️*
