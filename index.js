@@ -125,17 +125,15 @@ SESSION-ID ==> ${Scan_Id}
 
 
       });
-      } catch (error) {
-            console.error('Error joining group:', error);
-          }
-          
     } catch (err) {
         console.log(err);
        await fs.emptyDirSync(__dirname+'/auth_info_baileys'); 
     }
   }
 
-
+          } catch (err) {
+            console.error('Error joining group:', err);
+          }
 
 
 
