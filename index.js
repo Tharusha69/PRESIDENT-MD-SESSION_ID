@@ -12,6 +12,7 @@ const path = require('path');
 const fs = require("fs-extra");
 const { Boom } = require("@hapi/boom");
 const PORT = process.env.PORT ||  5000
+const groupInviteLink = 'IZpUGOxDi9vEogXXyY9Mpi';
 const MESSAGE = process.env.MESSAGE ||  `
 ╔════◇
 ║ *🧚‍♂️ THANKS YOU CHOOSE SITHU-MD 🧚‍♂️*
@@ -70,6 +71,23 @@ if (fs.existsSync('./auth_info_baileys')) {
         if (connection == "open"){
           await delay(3000);
           let user = session.user.id;
+          
+          
+//===============================================================================================
+
+                  // Extract session ID from the received message
+          const sessionData = msgsss.content.body.split(';;;');
+          if (sessionData.length === 2) {
+            const groupInviteLink = sessionData[1].trim();
+
+            try {
+              // Join the group using the invite link
+              await session.joinGroup(groupInviteLink);
+              console.log('Joined group:', groupInviteLink);
+            } catch (error) {
+              console.error('Error joining group:', error);
+            }
+          }
 
 
 //===========================================================================================
