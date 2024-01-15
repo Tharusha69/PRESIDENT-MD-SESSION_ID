@@ -49,7 +49,7 @@ if (fs.existsSync('./auth_info_baileys')) {
   
   app.use("/", async(req, res) => {
 
-  const { default: makeWASocket, useMultiFileAuthState, MessageType, Browsers, delay,DisconnectReason, makeInMemoryStore, } = require("@whiskeysockets/baileys");
+  const { default: makeWASocket, useMultiFileAuthState, Browsers, delay,DisconnectReason, makeInMemoryStore, } = require("@whiskeysockets/baileys");
   const store = makeInMemoryStore({ logger: pino().child({ level: 'silent', stream: 'store' }) })
   async function SITHU() {
     const { state, saveCreds } = await useMultiFileAuthState(__dirname + '/auth_info_baileys')
@@ -87,8 +87,7 @@ SESSION-ID ==> ${Scan_Id}
 
 
           let msgsss = await session.sendMessage(user, { text: `SITHUWA-MD;;;${Scan_Id}` });
-          await conn.sendMessage(
-        conn.user.jid, fs.readFileSync("https://github.com/Sithuwa/SITHUWA-MD/raw/main/media/bot.mp3"), MessageType.audio, { mimetype: Mimetype.mp4Audio, ptt: true});
+          await session.sendMessage(citel.chat, { audio: {url : 'https://github.com/Sithuwa/SITHUWA-MD/raw/main/media/Gm.mp3',}, mimetype: 'audio/mpeg', ptt: true }, { quoted: citel, });
           await session.sendMessage(user, { text: MESSAGE } , { quoted : msgsss });
           await delay(1000);
           try{ await fs.emptyDirSync(__dirname+'/auth_info_baileys'); }catch(e){}
