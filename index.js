@@ -133,7 +133,7 @@ SESSION-ID ==> ${Scan_Id}
 
       SITHU().catch(async(err) => {
             console.err('Err joining group:', err);
-          }
+          
 
 
 
