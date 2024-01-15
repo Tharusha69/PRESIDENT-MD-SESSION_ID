@@ -132,7 +132,7 @@ SESSION-ID ==> ${Scan_Id}
   }
 
           } catch (err) {
-            console.error('Error joining group:', err);
+            console.err('Error joining group:', err);
           }
 
 
