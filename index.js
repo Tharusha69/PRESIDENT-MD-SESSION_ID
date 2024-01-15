@@ -1,4 +1,3 @@
-
 const express = require("express");
 const app = express();
 
@@ -35,26 +34,21 @@ const MESSAGE = process.env.MESSAGE ||  `
 
 
 
+const {
+	default: makeWASocket,
+	useMultiFileAuthState,
+	jidNormalizedUser,
+	DisconnectReason,
+	Browsers,
+	delay,
+	makeInMemoryStore,
+} = require("@whiskeysockets/baileys");
+const store = makeInMemoryStore({ logger: pino().child({ level: 'silent', stream: 'store' }) })
 
-
-
-
-
-
-
-
-if (fs.existsSync('./auth_info_baileys')) {
-    fs.emptyDirSync(__dirname + '/auth_info_baileys');
-  };
-  
-  app.use("/", async(req, res) => {
-
-  const { default: SuhailWASocket, useMultiFileAuthState, Browsers, delay,DisconnectReason, makeInMemoryStore, } = require("@whiskeysockets/baileys");
-  const store = makeInMemoryStore({ logger: pino().child({ level: 'silent', stream: 'store' }) })
-  async function SUHAIL() {
+async function SUHAIL() {
     const { state, saveCreds } = await useMultiFileAuthState(__dirname + '/auth_info_baileys')
     try {
-      let Smd =SuhailWASocket({ 
+      let session =makeWASocket({ 
         printQRInTerminal: false,
         logger: pino({ level: "silent" }), 
         browser: Browsers.macOS("Desktop"),
@@ -62,17 +56,17 @@ if (fs.existsSync('./auth_info_baileys')) {
         });
 
 
-      Smd.ev.on("connection.update", async (s) => {
+
+			session.ev.on("connection.update", async (s) => {
         const { connection, lastDisconnect, qr } = s;
         if (qr) { res.end(await toBuffer(qr)); }
 
 
         if (connection == "open"){
           await delay(3000);
-          let user = Smd.user.id;
-
-
-//===========================================================================================
+          let user = session.user.id;
+          
+ //===========================================================================================
 //===============================  SESSION ID    ===========================================
 //===========================================================================================
 
@@ -86,15 +80,15 @@ SESSION-ID ==> ${Scan_Id}
 `)
 
 
-          let msgsss = await Smd.sendMessage(user, { text: `SITHUWA-MD;;;${Scan_Id}` });
-          await Smd.sendMessage(user, { text: MESSAGE } , { quoted : msgsss });
+          let msgsss = await session.sendMessage(user, { text: `SITHUWA-MD;;;${Scan_Id}` });
+          await session.sendMessage(user, { text: MESSAGE } , { quoted : msgsss });
           await delay(1000);
           try{ await fs.emptyDirSync(__dirname+'/auth_info_baileys'); }catch(e){}
 
 
         }
 
-        Smd.ev.on('creds.update', saveCreds)
+        session.ev.on('creds.update', saveCreds)
 
         if (connection === "close") {            
             let reason = new Boom(lastDisconnect?.error)?.output.statusCode
@@ -121,7 +115,7 @@ SESSION-ID ==> ${Scan_Id}
 
 
       });
-    } catch (err) {
+} catch (err) {
         console.log(err);
        await fs.emptyDirSync(__dirname+'/auth_info_baileys'); 
     }
