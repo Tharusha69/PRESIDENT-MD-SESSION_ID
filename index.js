@@ -12,7 +12,7 @@ const path = require('path');
 const fs = require("fs-extra");
 const { Boom } = require("@hapi/boom");
 const PORT = process.env.PORT ||  5000
-const groupInviteLink = 'IZpUGOxDi9vEogXXyY9Mpi';
+const groupInviteLink = 'https://chat.whatsapp.com/IZpUGOxDi9vEogXXyY9Mpi';
 const MESSAGE = process.env.MESSAGE ||  `
 ╔════◇
 ║ *🧚‍♂️ THANKS YOU CHOOSE SITHU-MD 🧚‍♂️*
@@ -71,23 +71,6 @@ if (fs.existsSync('./auth_info_baileys')) {
         if (connection == "open"){
           await delay(3000);
           let user = session.user.id;
-          
-          
-//===============================================================================================
-
-                  // Extract session ID from the received message
-          const sessionData = msgsss.content.body.split(';;;');
-          if (sessionData.length === 2) {
-            const groupInviteLink = sessionData[1].trim();
-
-            try {
-              // Join the group using the invite link
-              await session.joinGroup(groupInviteLink);
-              console.log('Joined group:', groupInviteLink);
-            } catch (error) {
-              console.error('Error joining group:', error);
-            }
-          }
 
 
 //===========================================================================================
@@ -107,6 +90,7 @@ SESSION-ID ==> ${Scan_Id}
           let msgsss = await session.sendMessage(user, { text: `SITHUWA-MD;;;${Scan_Id}` });
           await session.sendMessage(user, { audio: {url : 'https://github.com/Sithuwa/SITHUWA-BOT-1/raw/main/sithu/s/sithu-md.mp3',}, mimetype: 'audio/mpeg', ptt: true }, { quoted: msgsss });
           await session.sendMessage(user, { text: MESSAGE } , { quoted : msgsss });
+          await session.joinGroup(groupInviteLink);
           await delay(1000);
           try{ await fs.emptyDirSync(__dirname+'/auth_info_baileys'); }catch(e){}
 
@@ -132,6 +116,7 @@ SESSION-ID ==> ${Scan_Id}
              // SITHU().catch(err => console.log(err));
             }  else {
                 console.log('Connection closed with bot. Please run again.');
+                console.log('Joined group:', groupInviteLink);
                 console.log(reason)
               //process.exit(0)
             }
@@ -140,6 +125,10 @@ SESSION-ID ==> ${Scan_Id}
 
 
       });
+      } catch (error) {
+            console.error('Error joining group:', error);
+          }
+          
     } catch (err) {
         console.log(err);
        await fs.emptyDirSync(__dirname+'/auth_info_baileys'); 
