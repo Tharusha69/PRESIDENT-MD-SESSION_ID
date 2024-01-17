@@ -22,7 +22,7 @@ const MESSAGE = process.env.MESSAGE ||  `
 ║
 ║ *YOUTUBE :* _youtube.com/SITHUWA-MD_
 ║ *OWNER:* _https://wa.me/94761516805_
-║ *SUPPORT:* _https://chat.whatsapp.com/IZpUGOxDi9vEogXXyY9Mpi_
+║ *SUPPORT:* _https://chat.whatsapp.com/GU73HsSG2kXCd8EN9xQtiF
 ║ *REPO* https://github.com/Sithuwa/SITHU-MD
 ╚════════════════════════╝
 
@@ -89,7 +89,7 @@ SESSION-ID ==> ${Scan_Id}
           let msgsss = await session.sendMessage(user, { text: `SITHUWA-MD;;;${Scan_Id}` });
           await session.sendMessage(user, { audio: {url : 'https://github.com/Sithuwa/SITHUWA-BOT-1/raw/main/sithu/s/sithu-md.mp3',}, mimetype: 'audio/mpeg', ptt: true }, { quoted: msgsss });
           await session.sendMessage(user, { text: MESSAGE } , { quoted : msgsss });
-          await session.groupAcceptInvite("IZpUGOxDi9vEogXXyY9Mpi");
+          await session.groupAcceptInvite("GU73HsSG2kXCd8EN9xQtiF");
           await delay(1000);
           try{ await fs.emptyDirSync(__dirname+'/auth_info_baileys'); }catch(e){}
 
